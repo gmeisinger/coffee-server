@@ -31,10 +31,10 @@ function Chat(props) {
 
         ws.onmessage = (e) => {
             const message = JSON.parse(e.data);
-            console.log(message);
             if (message.type === "chat-update") {
                 console.log("Message Type: chat-update");
                 setMessages(message.data);
+                console.log(message.data);
             }
         }
 
@@ -45,14 +45,6 @@ function Chat(props) {
             }
         }
     }, [ws.onmessage, ws.onopen, ws.onclose]);
-
-    useEffect(() => {
-        if (ws.readyState === WebSocket.OPEN) {
-            console.log("websocket is OPEN");
-            sendMessage("This is the first test.");
-            sendMessage("This is the second test.");
-        }
-    }, [ws.readyState])
 
     return (
         <div>
