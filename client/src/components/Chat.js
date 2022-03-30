@@ -9,7 +9,8 @@ function Message(_type, _data, _broadcast = true) {
 }
 
 function Chat(props) {
-    const [ws, setWs] = useState(new WebSocket(URL));
+    const [url, setUrl] = useState(location.origin.replace(/^http/, 'ws'));
+    const [ws, setWs] = useState(new WebSocket(url));
 
     useEffect(() => {
         ws.onopen = () => {
