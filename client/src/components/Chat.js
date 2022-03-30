@@ -46,6 +46,7 @@ function Chat(props) {
 
     useEffect(() => {
         if (ws.readyState === WebSocket.OPEN) {
+            console.log("websocket is OPEN");
             sendMessage("This is the first test.");
             sendMessage("This is the second test.");
         }
