@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-//const URL = location.origin.replace(/^http/, 'ws');
+const URL = window.location.origin.replace(/^http/, 'ws');
 
 function Message(_type, _data, _broadcast = true) {
     this.type = _type;
@@ -9,8 +9,8 @@ function Message(_type, _data, _broadcast = true) {
 }
 
 function Chat(props) {
-    const [url, setUrl] = useState(location.origin.replace(/^http/, 'ws'));
-    const [ws, setWs] = useState(new WebSocket(url));
+    //const [url, setUrl] = useState(location.origin.replace(/^http/, 'ws'));
+    const [ws, setWs] = useState(new WebSocket(URL));
 
     useEffect(() => {
         ws.onopen = () => {
