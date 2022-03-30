@@ -11,6 +11,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "16.13.1"
+  },
   "dependencies": {
     "express": "^4.17.3",
     "ws": "^8.5.0"
