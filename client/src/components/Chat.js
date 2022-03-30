@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const URL = 'ws://127.0.0.1:3001';
+const URL = location.origin.replace(/^http/, 'ws');
 
 function Message(_type, _data, _broadcast = true) {
     this.type = _type;
