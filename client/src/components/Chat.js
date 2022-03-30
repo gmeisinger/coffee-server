@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const URL = location.origin.replace(/^http/, 'ws');
+//const URL = location.origin.replace(/^http/, 'ws');
 
 function Message(_type, _data, _broadcast = true) {
     this.type = _type;
