@@ -15,7 +15,7 @@ function Chat(props) {
     const [username, setUsername] = useState('Bob');
 
     function sendMessage(msg) {
-        message = new Message('chat-message', {
+        const message = new Message('chat-message', {
             sender: username,
             text: msg
         });
@@ -45,9 +45,11 @@ function Chat(props) {
     }, [ws.onmessage, ws.onopen, ws.onclose]);
 
     useEffect(() => {
-        sendMessage("This is the first test.");
-        sendMessage("This is the second test.");
-    }, [])
+        if (ws.readyState === WebSocket.OPEN) {
+            sendMessage("This is the first test.");
+            sendMessage("This is the second test.");
+        }
+    }, [ws.readyState])
 
     return (
         <div>

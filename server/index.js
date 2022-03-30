@@ -35,6 +35,7 @@ wss.on('connection', function connection(ws) {
         if (message.type === "chat-message") {
             chat.messages.push(message.data);
             broadcast(new Message('chat-update', chat.messages));
+            console.log(new Message('chat-update', chat.messages))
         }
     });
     //ws.send(JSON.stringify(new Message("current-faults", currentFaults)));
