@@ -9,6 +9,11 @@ function Message(_type, _data) {
     this.data = _data;
 }
 
+let chat = {
+    messages: [],
+    clients: []
+};
+
 const server = express()
     .use(express.static(path.resolve(__dirname, '../client/build')))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
@@ -16,26 +21,20 @@ const server = express()
 
 const wss = new WebSocket.Server({ server });
 
+function broadcast(data) {
+    wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(data));
+        }
+    });
+}
+
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(data) {
         const message = JSON.parse(data);
-        if (message.type === "1") {
-            //data is a new fault
-            //message.data.id = currentID++;
-            //currentFaults.push(message.data);
-        }
-        else if (message.type === "2") {
-            //data is id of fault to be removed
-            //const arrayCopy = currentFaults.filter((row) => row.id !== message.data);
-            //currentFaults.faults = arrayCopy;
-        }
-        //broadcast update to clients
-        if (message.broadcast === true) {
-            wss.clients.forEach(function each(client) {
-                if (client.readyState === WebSocket.OPEN) {
-                    client.send(JSON.stringify(new Message("", null)));
-                }
-            });
+        if (message.type === "chat-message") {
+            chat.messages.push(message.data);
+            broadcast(new Message('chat-update', chat.messages));
         }
     });
     //ws.send(JSON.stringify(new Message("current-faults", currentFaults)));

@@ -11,6 +11,16 @@ function Message(_type, _data, _broadcast = true) {
 function Chat(props) {
     //const [url, setUrl] = useState(location.origin.replace(/^http/, 'ws'));
     const [ws, setWs] = useState(new WebSocket(URL));
+    const [messages, setMessages] = useState([]);
+    const [username, setUsername] = useState('Bob');
+
+    function sendMessage(msg) {
+        message = new Message('chat-message', {
+            sender: username,
+            text: msg
+        });
+        ws.send(JSON.stringify(message));
+    }
 
     useEffect(() => {
         ws.onopen = () => {
@@ -20,11 +30,9 @@ function Chat(props) {
         ws.onmessage = (e) => {
             const message = JSON.parse(e.data);
             console.log(message);
-            if(message.type === "1") {
-                console.log("Message Type 1");
-            }
-            else if (message.type === "2") {
-                console.log("Message Type 2");
+            if (message.type === "chat-update") {
+                console.log("Message Type: chat-update");
+                setMessages(message.data);
             }
         }
 
@@ -36,8 +44,20 @@ function Chat(props) {
         }
     }, [ws.onmessage, ws.onopen, ws.onclose]);
 
+    useEffect(() => {
+        sendMessage("This is the first test.");
+        sendMessage("This is the second test.");
+    }, [])
+
     return (
-        <h1>Hello from Chat</h1>
+        <div>
+            <h1>Message On The Wall</h1>
+            <ul>
+                {messages.map((msg, i) => {
+                    <li>{msg.text}</li>
+                })}
+            </ul>
+        </div>
     );
 }
 
