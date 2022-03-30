@@ -38,6 +38,5 @@ wss.on('connection', function connection(ws) {
             console.log(new Message('chat-update', chat.messages))
         }
     });
-    //ws.send(JSON.stringify(new Message("current-faults", currentFaults)));
-    //ws.send(JSON.stringify(new Message("available-faults", { All : availableFaults })));
+54
 });
