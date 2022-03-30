@@ -25,6 +25,8 @@ function Chat(props) {
     useEffect(() => {
         ws.onopen = () => {
             console.log('WebSocket Connected.');
+            sendMessage("This is the first test.");
+            sendMessage("This is the second test.");
         }
 
         ws.onmessage = (e) => {
