@@ -50,9 +50,7 @@ function Chat(props) {
         <div>
             <h1>Message On The Wall</h1>
             <ul>
-                {messages.map((msg, i) => {
-                    <li>{msg.text}</li>
-                })}
+                {messages.map((msg, i) => <li>{msg.text}</li>)}
             </ul>
         </div>
     );
