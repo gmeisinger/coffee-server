@@ -18,7 +18,6 @@ const server = express()
     .use(express.static(path.resolve(__dirname, '../client/build')))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-
 const wss = new WebSocket.Server({ server });
 
 function broadcast(data) {
@@ -38,5 +37,4 @@ wss.on('connection', function connection(ws) {
             console.log(new Message('chat-update', chat.messages))
         }
     });
-54
 });
