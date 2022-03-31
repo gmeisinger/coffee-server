@@ -37,4 +37,5 @@ wss.on('connection', function connection(ws) {
             console.log(new Message('chat-update', chat.messages))
         }
     });
+    ws.send(new Message('chat-update', chat.messages));
 });

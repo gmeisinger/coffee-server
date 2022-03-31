@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.chat-message {
+  width: 100%;
+}
+
 .sender-text {
   font-weight: bold;
 }

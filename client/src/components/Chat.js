@@ -13,7 +13,7 @@ function Message(_type, _data, _broadcast = true) {
 
 function ChatMessage(props) {
 	return (
-		<div>
+		<div className="chat-message">
 			<span className="sender-text">{props.sender}: </span>
 			<span className="message-text">{props.text}</span>
 		</div>
