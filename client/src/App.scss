@@ -1,0 +1,61 @@
+@import "custom";
+
+.App {
+  text-align: center;
+}
+
+.header-image {
+  background-color: lightblue;
+  height: 128px;
+  width: 128px;
+  image-rendering: pixelated;
+}
+
+.chat-feed {
+  margin: auto;
+  padding: 1rem;
+  min-width: 20rem;
+  border: 1px solid black;
+  overflow: scroll;
+  text-align: left;
+}
+
+.chat-container {
+  margin: 1rem;
+}
+
+.message-row {
+  float: left;
+  width: 100%;
+  display: flex;
+  margin-bottom: 1px;
+}
+
+.message-block {
+  width: 100%;
+  display: inline-block;
+}
+
+.chat-message {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  max-width: 60%;
+  background-color: lightblue;
+}
+
+.is-user {
+  float: right;
+  background-color: lightblue;
+}
+
+.sender-text {
+  font-weight: bold;
+}
+
+/**/
+
+
+
+
+
