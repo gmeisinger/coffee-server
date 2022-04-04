@@ -65,7 +65,7 @@ function ChatInput(props) {
 function Chat(props) {
 	const [ws, setWs] = useState(new WebSocket(URL));
 	const [messages, setMessages] = useState([]);
-	const [username, setUsername] = useState('Bob');
+	const [username, setUsername] = useState('');
 
 	function sendMessage(msg) {
 		const message = new Message('chat-message', {
@@ -103,6 +103,9 @@ function Chat(props) {
 				console.log("Message Type: chat-update");
 				setMessages(message.data);
 				console.log(message.data);
+			}
+			else if(message.type === 'set-username') {
+				setUsername(message.data);
 			}
 		}
 
