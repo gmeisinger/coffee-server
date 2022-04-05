@@ -1,18 +1,51 @@
 import logo from './logo.svg';
 import './App.scss';
 
+import React, { useState } from "react";
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles } from './components/globalStyles';
+import { lightTheme, darkTheme } from './components/Theme';
+
 import Chat from "./components/Chat";
 import Jumbotron from './components/Jumbotron';
-import { Container } from 'react-bootstrap';
+import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 
 function App() {
+
+  const [theme, setTheme] = useState('light');
+
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  }
+
   return (
-    <div className="App">
-      <Container>
-        <Jumbotron />
-        <Chat />
-      </Container>
-    </div>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
+        <GlobalStyles />
+        <div className="App">
+          <Container>
+            <Navbar className='color-nav' variant={theme} sticky='top' expand="lg">
+              <Container>
+                {/* <Navbar.Brand href="#home">GM</Navbar.Brand> */}
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="me-auto">
+                    <Nav.Link href="#projects">Home</Nav.Link>
+                    <Nav.Link href="#about">Chat</Nav.Link>
+                  </Nav>
+                  <Navbar.Text>
+                    <Button onClick={themeToggler}>THEME</Button>
+                  </Navbar.Text>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
+            <Jumbotron />
+            <Chat />
+          </Container>
+        </div>
+      </>
+    </ThemeProvider>
+
   );
 }
 
