@@ -22,7 +22,7 @@ function ChatMessage(props) {
 			<div className="message-block">
 				<Card className={props.isYou ? "chat-message rounded is-user" : "chat-message rounded"}>
 					{!props.repeatSender && !props.isYou && <Card.Title className="sender-text">{props.sender}</Card.Title>}
-					<Card.Text>{props.text}</Card.Text>
+					<Card.Text className="message-text">{props.text}</Card.Text>
 				</Card>
 			</div>
 		</div>
