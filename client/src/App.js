@@ -20,9 +20,8 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <>
+      <div className="App">
         <GlobalStyles />
-        <div className="App">
           <Container>
             <Navbar className='color-nav' variant={theme} sticky='top' expand="lg">
               <Container>
@@ -42,8 +41,7 @@ function App() {
             <Jumbotron />
             <Chat />
           </Container>
-        </div>
-      </>
+      </div>
     </ThemeProvider>
 
   );

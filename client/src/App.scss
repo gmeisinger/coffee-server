@@ -1,10 +1,5 @@
 @import "custom";
 
-// body {
-//   background-color: #363537;
-//   color: #FAFAFA;
-// }
-
 .App {
   text-align: center;
 }
@@ -21,7 +16,7 @@
   padding: 1rem;
   min-width: 20rem;
   border: 1px solid black;
-  overflow: scroll;
+  overflow-y: scroll;
   text-align: left;
 }
 
@@ -60,7 +55,22 @@
 
 /**/
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
 
-
-
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
