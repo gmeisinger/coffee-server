@@ -36,29 +36,32 @@ function ChatMessage(props) {
 function ChatFeed(props) {
 	return (
 		<div className="chat-feed">
-			<div className="chat-container">
-				{props.messages.map((msg, i) => <ChatMessage key={i} sender={msg.sender} text={msg.text} isYou={props.username === msg.sender} repeatSender={i > 0 && msg.sender === props.messages[i - 1].sender} />)}
-			</div>
+			{props.messages.map((msg, i) => <ChatMessage key={i} sender={msg.sender} text={msg.text} isYou={props.username === msg.sender} repeatSender={i > 0 && msg.sender === props.messages[i - 1].sender} />)}
 		</div>
 	);
 }
 
 function ChatInput(props) {
 	return (
-		<Form>
-			<Form.Group controlId="formUsername">
+		<div className="chat-input-container">
+			<Form>
+				{/* <Form.Group controlId="formUsername">
 				<Form.Label>Username </Form.Label>
 				<Form.Control
 					defaultValue={props.username}
 					onChange={props.handleChangeUsername}
 					autoComplete="off"
 					type="text" />
-			</Form.Group>
-			<Form.Group controlId="formMessage">
-				<Form.Label>Message </Form.Label>
-				<Form.Control onKeyDown={props.handleMessageKeyDown} autoComplete="off" type="text" />
-			</Form.Group>
-		</Form>
+			</Form.Group> */}
+				<Form.Group controlId="formMessage">
+					{/* <Form.Label>Message </Form.Label> */}
+					<Stack direction="horizontal" gap={3}>
+						<Form.Control className="chat-input" onKeyDown={props.handleMessageKeyDown} autoComplete="off" type="text" />
+						<Button className="send-button">SEND</Button>
+					</Stack>
+				</Form.Group>
+			</Form>
+		</div>
 	);
 }
 
@@ -104,7 +107,7 @@ function Chat(props) {
 				setMessages(message.data);
 				console.log(message.data);
 			}
-			else if(message.type === 'set-username') {
+			else if (message.type === 'set-username') {
 				setUsername(message.data);
 			}
 		}
@@ -118,15 +121,14 @@ function Chat(props) {
 	}, [ws.onmessage, ws.onopen, ws.onclose]);
 
 	return (
-		<div>
+		<div className="chat">
 			<h1>Coffee Chat</h1>
+			<ChatFeed messages={messages} username={username} />
 			<ChatInput
 				handleChangeUsername={handleChangeUsername}
 				handleMessageKeyDown={handleMessageKeyDown}
 				username={username}
 			/>
-			<hr />
-			<ChatFeed messages={messages} username={username} />
 		</div>
 	);
 }
