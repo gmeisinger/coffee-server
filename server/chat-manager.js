@@ -12,7 +12,11 @@ module.exports = function () {
     }
 
     this.addClient = (client) => {
+        this.clients.push(client);
+    }
 
+    this.generateUsername = () => {
+        return `user${Date.now().toString()}`;
     }
 
     this.setClientName = (oldName, newName) => {

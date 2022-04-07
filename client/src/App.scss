@@ -24,19 +24,19 @@ html, body {
 .chat {
   position: relative;
   width: 100%;
-  height: calc(100% - 200px);
+  height: calc(100% - 230px);
 }
 
 .chat-feed {
   position: absolute;
-  top: 60px;
+  top: 10px;
   bottom: 100px;
   left: 0;
   right: 0;
   padding: 2rem;
   border: 1px solid black;
   overflow-y: scroll;
-  overflow-x: scroll;
+  overflow-x: hidden;
   text-align: left;
 }
 
@@ -77,7 +77,7 @@ html, body {
   position: absolute; 
   bottom: 10px;
   margin: auto;
-  width: 90%;
+  width: 100%;
   padding: 18px;
 }
 
@@ -86,9 +86,20 @@ html, body {
   width: calc(100% - 32px);
 }
 
+.send-button {
+  height: 60px;
+  width: 60px;
+}
+
 /**/
 
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+}
+
+@include media-breakpoint-down(md) {
+  .chat {
+    height: calc(100% - 320px);
+  }
 }

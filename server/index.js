@@ -40,7 +40,9 @@ wss.on('connection', function connection(ws) {
         }
     });
     ws.send(JSON.stringify(new Message('chat-update', chat.messages)));
-    let newClient = { name: `user${Date.now().toString()}` };
+
+    // add new client
+    let newClient = { name: chat.generateUsername() };
     ws.send(JSON.stringify(new Message('set-username', newClient.name)));
     chat.clients.push(newClient);
 });
