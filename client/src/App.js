@@ -37,10 +37,8 @@ function App() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <Container>
           <Jumbotron />
           <Chat />
-        </Container>
       </div>
     </ThemeProvider>
   );

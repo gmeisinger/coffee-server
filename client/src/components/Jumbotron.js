@@ -9,7 +9,7 @@ import JumbotronImage from "../img/coffee-logo.png";
 
 function Jumbotron() {
 	return (
-		<Container className="h-100 mb-4">
+		<Container className="mb-1">
 			<Row className="justify-content-center">
 				<Col className="mb-3 text-center">
 					<Image className="header-image" src={JumbotronImage} roundedCircle fluid />
