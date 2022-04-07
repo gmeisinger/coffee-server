@@ -62,7 +62,7 @@ function ChatInput(props) {
 }
 
 function Chat(props) {
-	const [ws, setWs] = useState(new WebSocket(LOCAL_URL));
+	const [ws, setWs] = useState(new WebSocket(URL));
 	const [messages, setMessages] = useState([]);
 	const [username, setUsername] = useState('');
 
