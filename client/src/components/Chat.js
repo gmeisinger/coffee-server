@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Form, Button, Container, Row, Col, Stack, Card } from "react-bootstrap";
 
@@ -62,16 +62,18 @@ function ChatInput(props) {
 }
 
 function Chat(props) {
-	const [ws, setWs] = useState(new WebSocket(URL));
+	//const [ws, setWs] = useState(new WebSocket(LOCAL_URL));
 	const [messages, setMessages] = useState([]);
 	const [username, setUsername] = useState('');
+
+	const ws = useRef();
 
 	function sendMessage(msg) {
 		const message = new Message('chat-message', {
 			sender: username,
 			text: msg
 		});
-		ws.send(JSON.stringify(message));
+		ws.current.send(JSON.stringify(message));
 	}
 
 	function handleChangeUsername(event) {
@@ -81,7 +83,7 @@ function Chat(props) {
 			newName: event.target.value
 		});
 		setUsername(event.target.value);
-		ws.send(JSON.stringify(message));
+		ws.current.send(JSON.stringify(message));
 	}
 
 	function handleMessageKeyDown(event) {
@@ -91,12 +93,39 @@ function Chat(props) {
 		}
 	}
 
+	// useEffect(() => {
+	// 	ws.onopen = () => {
+	// 		console.log('WebSocket Connected.');
+	// 	}
+
+	// 	ws.onmessage = (e) => {
+	// 		const message = JSON.parse(e.data);
+	// 		if (message.type === "chat-update") {
+	// 			console.log("Message Type: chat-update");
+	// 			setMessages(message.data);
+	// 			console.log(message.data);
+	// 		}
+	// 		else if (message.type === 'set-username') {
+	// 			setUsername(message.data);
+	// 		}
+	// 	}
+
+	// 	return () => {
+	// 		ws.onclose = () => {
+	// 			console.log('WebSocket Disconnected');
+	// 			setWs(new WebSocket(URL));
+	// 		}
+	// 	}
+	// }, [ws.onmessage, ws.onopen, ws.onclose]);
+
 	useEffect(() => {
-		ws.onopen = () => {
+		ws.current = new WebSocket(LOCAL_URL);
+
+		ws.current.onopen = () => {
 			console.log('WebSocket Connected.');
 		}
 
-		ws.onmessage = (e) => {
+		ws.current.onmessage = (e) => {
 			const message = JSON.parse(e.data);
 			if (message.type === "chat-update") {
 				console.log("Message Type: chat-update");
@@ -108,13 +137,15 @@ function Chat(props) {
 			}
 		}
 
-		return () => {
-			ws.onclose = () => {
-				console.log('WebSocket Disconnected');
-				setWs(new WebSocket(URL));
-			}
+		ws.current.onclose = () => {
+			console.log('WebSocket Disconnected');
 		}
-	}, [ws.onmessage, ws.onopen, ws.onclose]);
+
+		return () => {
+            console.log("cleaning up websocket.");
+            ws.current.close();
+        }
+	}, []);
 
 	return (
 		<div className="chat">
